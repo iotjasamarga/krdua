@@ -86,20 +86,23 @@ async def io_related():
                 # print(data_old)
 
             i+=1
-            await asyncio.sleep(1)
+            
 
         except mysql.connector.Error as err:
             logging.error(err.msg)    
 
+        await asyncio.sleep(1)
+
 async def io_related2():
     while True:
         try:
-            socket.gethostbyaddr('192.168.0.197')
-            logging.info("ping ok")
+            socket.gethostbyaddr('10.0.7.2')
+            logging.info("device connected  ")
+
         except socket.herror:
-            logging.info(u"Unknown host")
+            logging.info(u"device disconnected")
+        await asyncio.sleep(1)
         
-        await asyncio.sleep(0.5)
 
 async def main():
 
