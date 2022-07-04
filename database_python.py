@@ -28,14 +28,14 @@ async def io_related():
     )
     
     cursor= mydb.cursor()
-    cursor.execute("SELECT id FROM kr2") #id_location data
+    cursor.execute("SELECT id FROM kr2") #id data
     myresult = cursor.fetchall()
         
     f= open("data.txt","w+")
     f.write(str(myresult[len(myresult)-1][0]))
     f.close()
 
-    i = 0
+    # i = 0
 
     while True:
         mydb1 = mysql.connector.connect(
@@ -86,11 +86,11 @@ async def io_related():
                 else:
                     logging.error("feedback error")
                                     
-            print(f'hasil {myid[len(myid)-1][0]} hitung {i}')
+            # print(f'hasil {myid[len(myid)-1][0]} hitung {i}')
                 # print(data_new)
                 # print(data_old)
 
-            i+=1
+            # i+=1
 
         except mysql.connector.Error as err:
             logging.error(err.msg)    
