@@ -20,15 +20,15 @@ async def io_related():
     headers = {"Content-Type": "application/json",
                     "Authorization": "2345391662"}
 
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="test"
+    mydb = mysql.connector.connect( 
+        host="localhost", #172.16.4.34
+        user="root", #jmto_cctv
+        password="", #jmt02021!#
+        database="test" #nonvehicledb
     )
-
+    
     cursor= mydb.cursor()
-    cursor.execute("SELECT id FROM kr2")
+    cursor.execute("SELECT id FROM kr2") #id_location data
     myresult = cursor.fetchall()
         
     f= open("data.txt","w+")
@@ -39,25 +39,30 @@ async def io_related():
 
     while True:
         mydb1 = mysql.connector.connect(
-                host="localhost",
-                user="root",
-                password="",
-                database="test"
+                host="localhost", #172.16.4.34
+                user="root", #jmto_cctv
+                password="", #jmt02021!#
+                database="test" #nonvehicledb
             )
             
         try :
             cursor1= mydb1.cursor()
-            cursor1.execute("SELECT id FROM kr2")
-            myresult1 = cursor1.fetchall()
-            data_new = str(myresult1[len(myresult1)-1][0])
+            cursor1.execute("SELECT id FROM kr2") #id data
+            myid = cursor1.fetchall()
+            data_new = str(myid[len(myid)-1][0])
 
             lines = tuple(open("data.txt", 'r'))
             data_old = lines[0]
 
             cursor2= mydb1.cursor()
-            cursor2.execute("SELECT detect FROM kr2")
-            myresult2 = cursor2.fetchall()
-            data_gambar = str(myresult2[len(myresult2)-1][0])
+            cursor2.execute("SELECT detect FROM kr2") #id_location data
+            myid_location = cursor2.fetchall()
+            id_location = str(myid_location[len(myid_location)-1][0])
+
+            cursor3= mydb1.cursor()
+            cursor3.execute("SELECT detect FROM kr2") #nonkr_details data
+            mynonkr_detail = cursor3.fetchall()
+            nonkr_details = str(mynonkr_detail[len(mynonkr_detail)-1][0])
 
                 # with open(data_gambar, "rb") as img_file:
                 #     b64_string = base64.b64encode(img_file.read())
@@ -73,20 +78,19 @@ async def io_related():
                 if (response.json()['status'] == 1):                          
                     logging.info("status:" + str(response.json()['status']))
                     f= open("data.txt","w+")
-                    f.write(str(myresult1[len(myresult1)-1][0]))
+                    f.write(str(myid[len(myid)-1][0]))
                     f.close()
-                    print(myresult1[len(myresult1)-1][0])
+                    print(myid[len(myid)-1][0])
                 elif (response.json()['status'] == 0):
                     logging.error("feedback error")
                 else:
                     logging.error("feedback error")
                                     
-            print(f'hasil {myresult1[len(myresult1)-1][0]} hitung {i}')
+            print(f'hasil {myid[len(myid)-1][0]} hitung {i}')
                 # print(data_new)
                 # print(data_old)
 
             i+=1
-            
 
         except mysql.connector.Error as err:
             logging.error(err.msg)    
