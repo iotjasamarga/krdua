@@ -5,6 +5,8 @@ import json
 import logging
 import base64
 import socket
+import os
+
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s.%(msecs)03d [%(levelname)s] %(message)s",
@@ -63,15 +65,20 @@ async def io_related():
             cursor3.execute("SELECT detect FROM kr2") #nonkr_details data
             mynonkr_detail = cursor3.fetchall()
             nonkr_details = str(mynonkr_detail[len(mynonkr_detail)-1][0])
+            logging.info(nonkr_details)
 
-                # with open(data_gambar, "rb") as img_file:
-                #     b64_string = base64.b64encode(img_file.read())
+            if os.stat(nonkr_details).st_size:
+                with open(nonkr_details, "rb") as img_file:
+                    b64_string = base64.b64encode(img_file.read())
+                    logging.info("converted")
+            else:
+                logging.error("no picture url")
 
             if data_new != data_old:
                 data_add = {
-                    "kode_lokasi":	"1",	
-                    "jenis_r2" :	"Montor",
-                    "gambar": "base64"                            
+                    "kode_lokasi": id_location,	
+                    "jenis_r2" : nonkr_details,
+                    "gambar": b64_string                            
                 }
                 response = requests.post(url, headers=headers, json=data_add)
                         
@@ -100,7 +107,7 @@ async def io_related():
 async def io_related2():
     while True:
         try:
-            socket.gethostbyaddr('10.0.7.2')
+            socket.gethostbyaddr('192.168.43.25')
             logging.info("device connected  ")
 
         except socket.herror:
@@ -119,5 +126,3 @@ if __name__ == "__main__":
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
-
-        
