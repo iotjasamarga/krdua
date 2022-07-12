@@ -127,7 +127,7 @@ async def io_related():
 async def io_related2():
     while True:
         try:
-            socket.gethostbyaddr('192.168.0.101')
+            socket.gethostbyaddr('')
             logging.info("device connected")
 
         except socket.herror:
