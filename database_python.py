@@ -122,24 +122,34 @@ async def io_related():
         except mysql.connector.Error as err:
             logging.error(err.msg)    
 
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(1)
 
 async def io_related2():
     while True:
         try:
             socket.gethostbyaddr('192.168.0.101')
-            logging.info("device connected  ")
+            logging.info("device connected")
 
         except socket.herror:
             logging.info(u"device disconnected")
         await asyncio.sleep(1)
         
+async def io_related3():
+    while True:
+        try:
+            socket.gethostbyaddr('8.8.8.8')
+            logging.info("connection establish")
+
+        except socket.herror:
+            logging.info(u"connection not establish")
+        await asyncio.sleep(1)
 
 async def main():
 
     await asyncio.gather(
         io_related(),
         io_related2(),
+        io_related3(),
     )  # 1s + 1s = over 1s
 
 if __name__ == "__main__":
