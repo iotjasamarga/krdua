@@ -36,7 +36,7 @@ async def io_related():
     )
     
     cursor= mydb.cursor()
-    cursor.execute("SELECT id FROM kr2") #id data
+    cursor.execute("SELECT id FROM data") #id data
     myresult = cursor.fetchall()
         
     f= open("data.txt","w+")
@@ -55,7 +55,7 @@ async def io_related():
             
         try :
             cursor1= mydb1.cursor()
-            cursor1.execute("SELECT id FROM kr2") #id data
+            cursor1.execute("SELECT id FROM data") #id data
             myid = cursor1.fetchall()
             data_new = str(myid[len(myid)-1][0])
 
@@ -63,19 +63,19 @@ async def io_related():
             data_old = lines[0]
 
             cursor2= mydb1.cursor()
-            cursor2.execute("SELECT id FROM kr2") #id_location data
+            cursor2.execute("SELECT id_location FROM data") #id_location data
             myid_location = cursor2.fetchall()
             id_location = str(myid_location[len(myid_location)-1][0])
             logging.info(f"id location:{id_location}")
             
             cursor3= mydb1.cursor()
-            cursor3.execute("SELECT detect FROM kr2") #nonkr_details data
+            cursor3.execute("SELECT capture_highres FROM data") #capture_highres data
             mynonkr_gambar = cursor3.fetchall()
             nonkr_gambar = mynonkr_gambar[len(mynonkr_gambar)-1][0]
             # logging.info(f"gambar:{nonkr_gambar[0:100]}")
 
             cursor4= mydb1.cursor()
-            cursor4.execute("SELECT details FROM kr2") #nonkr_details data
+            cursor4.execute("SELECT nonkr_details FROM data") #nonkr_details data
             mynonkr_detail = cursor4.fetchall()
             nonkr_details = str(mynonkr_detail[len(mynonkr_detail)-1][0])
             logging.info(f"detail:{nonkr_details[0:100]}")
