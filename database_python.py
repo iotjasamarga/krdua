@@ -124,7 +124,7 @@ async def io_related():
                 # print(data_old)
 
             # i+=1
-
+            mydb1.close()
         except mysql.connector.Error as err:
             logging.error(err.msg)    
 
