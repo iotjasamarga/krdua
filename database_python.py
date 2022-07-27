@@ -36,13 +36,13 @@ async def io_related():
     )
     
     cursor= mydb.cursor()
-    cursor.execute("SELECT id FROM data") #id data
+    cursor.execute("SELECT id FROM data ORDER BY id DESC LIMIT 2") #id data
     myresult = cursor.fetchall()
         
     f= open("data.txt","w+")
-    f.write(str(myresult[len(myresult)-1][0]))
+    f.write(str(myresult[0][0]))
     f.close()
-
+    mydb.close()
     # i = 0
 
     while True:
@@ -55,29 +55,26 @@ async def io_related():
             
         try :
             cursor1= mydb1.cursor()
-            cursor1.execute("SELECT id FROM data") #id data
+            cursor1.execute("SELECT id FROM data ORDER BY id DESC LIMIT 2") #id data
             myid = cursor1.fetchall()
-            data_new = str(myid[len(myid)-1][0])
+            data_new = str(myid[0][0])
 
             lines = tuple(open("data.txt", 'r'))
             data_old = lines[0]
 
-            cursor2= mydb1.cursor()
-            cursor2.execute("SELECT id_location FROM data") #id_location data
-            myid_location = cursor2.fetchall()
-            id_location = str(myid_location[len(myid_location)-1][0])
+            cursor1.execute("SELECT id_location FROM data ORDER BY id DESC LIMIT 2") #id_location data
+            myid_location = cursor1.fetchall()
+            id_location = str(myid_location[0][0])
             logging.info(f"id location:{id_location}")
             
-            cursor3= mydb1.cursor()
-            cursor3.execute("SELECT capture_highres FROM data") #capture_highres data
-            mynonkr_gambar = cursor3.fetchall()
-            nonkr_gambar = mynonkr_gambar[len(mynonkr_gambar)-1][0]
-            # logging.info(f"gambar:{nonkr_gambar[0:100]}")
+            cursor1.execute("SELECT capture_highres FROM data ORDER BY id DESC LIMIT 2") #capture_highres data
+            mynonkr_gambar = cursor1.fetchall()
+            nonkr_gambar = mynonkr_gambar[0][0]
+            logging.info(f"gambar:{nonkr_gambar[0:100]}")
 
-            cursor4= mydb1.cursor()
-            cursor4.execute("SELECT nonkr_details FROM data") #nonkr_details data
-            mynonkr_detail = cursor4.fetchall()
-            nonkr_details = str(mynonkr_detail[len(mynonkr_detail)-1][0])
+            cursor1.execute("SELECT nonkr_details FROM data ORDER BY id DESC LIMIT 2") #nonkr_details data
+            mynonkr_detail = cursor1.fetchall()
+            nonkr_details = str(mynonkr_detail[0][0])
             logging.info(f"detail:{nonkr_details[0:100]}")
             
             # if os.stat(nonkr_details).st_size:
@@ -93,9 +90,9 @@ async def io_related():
                 logging.info("converted")
                 # logging.info(b64_string[0:100])
 
-                f= open("data_base64_.txt","w+")
-                f.write(b64_string.decode())
-                f.close()
+                # f= open("data_base64_.txt","w+")
+                # f.write(b64_string.decode())
+                # f.close()
             else:
                 logging.error("no picture url")
 
