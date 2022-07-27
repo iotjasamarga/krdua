@@ -58,6 +58,7 @@ async def io_related():
             cursor1.execute("SELECT id FROM data ORDER BY id DESC LIMIT 2") #id data
             myid = cursor1.fetchall()
             data_new = str(myid[0][0])
+            logging.info(f"id :{data_new}")
 
             lines = tuple(open("data.txt", 'r'))
             data_old = lines[0]
@@ -125,7 +126,7 @@ async def io_related():
         except mysql.connector.Error as err:
             logging.error(err.msg)    
 
-        await asyncio.sleep(1)
+        await asyncio.sleep(20)
 
 async def io_related2():
     url2 = "https://jid.jasamargalive.com/client-api/object_r2/update_status_perangkat"    
@@ -159,7 +160,7 @@ async def io_related2():
         else:
             logging.error("feedback error")
 
-        await asyncio.sleep(5)
+        await asyncio.sleep(10)
         
 async def io_related3():
     while True:
@@ -190,7 +191,7 @@ async def io_related3():
         else:
             logging.error("feedback error")
 
-        await asyncio.sleep(3)
+        await asyncio.sleep(10)
 
 async def main():
 
