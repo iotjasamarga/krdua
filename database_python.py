@@ -152,7 +152,7 @@ async def io_related2():
         response = requests.post(url2, headers=headers, json=data_status_device)
                     
         if (response.json()['status'] == 1):                          
-            logging.info("res status perangkat:" + str(response.json()['status']))
+            logging.info("res status device:" + str(response.json()['status']))
             # logging.info("status_detail:" + str(response.json()))
 
         elif (response.json()['status'] == 0):
