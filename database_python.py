@@ -70,12 +70,12 @@ async def io_related():
             cursor1.execute("SELECT capture_highres FROM data ORDER BY id DESC LIMIT 2") #capture_highres data
             mynonkr_gambar = cursor1.fetchall()
             nonkr_gambar = mynonkr_gambar[0][0]
-            logging.info(f"gambar:{nonkr_gambar[0:100]}")
+            logging.info(f"gambar:{nonkr_gambar[0:10]}")
 
             cursor1.execute("SELECT nonkr_details FROM data ORDER BY id DESC LIMIT 2") #nonkr_details data
             mynonkr_detail = cursor1.fetchall()
             nonkr_details = str(mynonkr_detail[0][0])
-            logging.info(f"detail:{nonkr_details[0:100]}")
+            logging.info(f"detail:{nonkr_details[0:10]}")
             
             # if os.stat(nonkr_details).st_size:
             #     with open(nonkr_details, "rb") as img_file:
@@ -105,8 +105,8 @@ async def io_related():
                 response = requests.post(url, headers=headers, json=data_add)
                         
                 if (response.json()['status'] == 1):                          
-                    logging.info("status:" + str(response.json()['status']))
-                    logging.info("status_detail:" + str(response.json()))
+                    logging.info("res status addobject:" + str(response.json()['status']))
+                    # logging.info("status_detail:" + str(response.json()))
                     f= open("data.txt","w+")
                     f.write(str(myid[len(myid)-1][0]))
                     f.close()
@@ -151,8 +151,8 @@ async def io_related2():
         response = requests.post(url2, headers=headers, json=data_status_device)
                     
         if (response.json()['status'] == 1):                          
-            logging.info("status:" + str(response.json()['status']))
-            logging.info("status_detail:" + str(response.json()))
+            logging.info("res status perangkat:" + str(response.json()['status']))
+            # logging.info("status_detail:" + str(response.json()))
 
         elif (response.json()['status'] == 0):
             logging.error("feedback error")
@@ -182,8 +182,8 @@ async def io_related3():
         response = requests.post(url3, headers=headers, json=data_status_connection)
                     
         if (response.json()['status'] == 1):                          
-            logging.info("status:" + str(response.json()['status']))
-            logging.info("status_detail:" + str(response.json()))
+            logging.info("res status koneksi:" + str(response.json()['status']))
+            # logging.info("status_detail:" + str(response.json()))
             
         elif (response.json()['status'] == 0):
             logging.error("feedback error")
