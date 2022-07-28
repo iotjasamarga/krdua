@@ -112,7 +112,7 @@ async def io_related():
                     logging.info("res status addobject:" + str(response.json()['status']))
                     # logging.info("status_detail:" + str(response.json()))
                     f= open("data.txt","w+")
-                    f.write(str(myid[len(myid)-1][0]))
+                    f.write(str(myid[len(myid)][0]))
                     f.close()
                     print(myid[len(myid)-1][0])
                 elif (response.json()['status'] == 0):
