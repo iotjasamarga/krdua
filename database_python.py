@@ -67,19 +67,22 @@ async def io_related():
             cursor2.execute("SELECT id_location FROM data ORDER BY id DESC LIMIT 2") #id_location data
             myid_location = cursor2.fetchall()
             id_location = str(myid_location[0][0])
-            logging.info(f"id location:{id_location}")
+            if id_location != null:
+                logging.info(f"id location:{id_location}")
             
             cursor3= mydb1.cursor()
             cursor3.execute("SELECT capture_highres FROM data ORDER BY id DESC LIMIT 2") #capture_highres data
             mynonkr_gambar = cursor3.fetchall()
             nonkr_gambar = mynonkr_gambar[0][0]
-            logging.info(f"gambar:{nonkr_gambar[0:10]}")
+            # if nonkr_gambar != null:
+            #     logging.info(f"gambar:{nonkr_gambar[0:10]}")
 
             cursor4= mydb1.cursor()
             cursor4.execute("SELECT nonkr_details FROM data ORDER BY id DESC LIMIT 2") #nonkr_details data
             mynonkr_detail = cursor4.fetchall()
             nonkr_details = str(mynonkr_detail[0][0])
-            logging.info(f"detail:{nonkr_details[0:10]}")
+            if nonkr_details != null:
+                logging.info(f"detail:{nonkr_details[0:10]}")
             
             # if os.stat(nonkr_details).st_size:
             #     with open(nonkr_details, "rb") as img_file:
