@@ -67,7 +67,7 @@ async def io_related():
             cursor2.execute("SELECT id_location FROM data ORDER BY id DESC LIMIT 2") #id_location data
             myid_location = cursor2.fetchall()
             id_location = str(myid_location[0][0])
-            if id_location != null:
+            if id_location != '':
                 logging.info(f"id location:{id_location}")
             
             cursor3= mydb1.cursor()
@@ -81,7 +81,7 @@ async def io_related():
             cursor4.execute("SELECT nonkr_details FROM data ORDER BY id DESC LIMIT 2") #nonkr_details data
             mynonkr_detail = cursor4.fetchall()
             nonkr_details = str(mynonkr_detail[0][0])
-            if nonkr_details != null:
+            if nonkr_details != '':
                 logging.info(f"detail:{nonkr_details[0:10]}")
             
             # if os.stat(nonkr_details).st_size:
@@ -115,9 +115,9 @@ async def io_related():
                     logging.info("res status addobject:" + str(response.json()['status']))
                     # logging.info("status_detail:" + str(response.json()))
                     f= open("data.txt","w+")
-                    f.write(str(myid[len(myid)][0]))
+                    f.write(str(myid[0][0]))
                     f.close()
-                    print(myid[len(myid)-1][0])
+                
                 elif (response.json()['status'] == 0):
                     logging.error("feedback error")
                 else:
