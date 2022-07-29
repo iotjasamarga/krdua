@@ -19,7 +19,7 @@ config_obj2 = configparser.ConfigParser()
 config_obj2.read("configfile.ini")
 config_obj = config_obj2["configfile"]
 
-url = "https://jid.jasamargalive.com/client-api/add_object_r2"
+url = "https://jid.jasamarga.com/client-api/add_object_r2"
 
 headers = {"Content-Type": "application/json",
                     "Authorization": "2345391662"}
@@ -27,7 +27,7 @@ headers = {"Content-Type": "application/json",
 async def io_related():
 
     global data_old, data_new
-    url = "https://jid.jasamargalive.com/client-api/add_object_r2"
+    url = "https://jid.jasamarga.com/client-api/add_object_r2"
     mydb = mysql.connector.connect( 
         host=config_obj["host"],
         user=config_obj["user"],
@@ -135,7 +135,7 @@ async def io_related():
         await asyncio.sleep(20)
 
 async def io_related2():
-    url2 = "https://jid.jasamargalive.com/client-api/object_r2/update_status_perangkat"    
+    url2 = "https://jid.jasamarga.com/client-api/object_r2/update_status_perangkat"    
     while True:
         try:
             socket.gethostbyaddr(config_obj["ipdevice"])
@@ -170,7 +170,7 @@ async def io_related2():
         
 async def io_related3():
     while True:
-        url3 = "https://jid.jasamargalive.com/client-api/object_r2/update_status_koneksi" 
+        url3 = "https://jid.jasamarga.com/client-api/object_r2/update_status_koneksi" 
         try:
             socket.gethostbyaddr('8.8.8.8')
             logging.info("connection establish")
