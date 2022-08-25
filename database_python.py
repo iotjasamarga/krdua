@@ -28,32 +28,38 @@ async def io_related():
 
     global data_old, data_new
     url = "https://jid.jasamarga.com/client-api/add_object_r2"
-    mydb = mysql.connector.connect( 
-        host=config_obj["host"],
-        user=config_obj["user"],
-        password=config_obj["password"], 
-        database=config_obj["database"] 
-    )
     
-    cursor= mydb.cursor()
-    cursor.execute("SELECT id FROM data ORDER BY id DESC LIMIT 2") #id data
-    myresult = cursor.fetchall()
+    try:
+        mydb = mysql.connector.connect( 
+            host=config_obj["host"],
+            user=config_obj["user"],
+            password=config_obj["password"], 
+            database=config_obj["database"] 
+        )
         
-    f= open("data.txt","w+")
-    f.write(str(myresult[0][0]))
-    f.close()
-    mydb.close()
+        cursor= mydb.cursor()
+        cursor.execute("SELECT id FROM data ORDER BY id DESC LIMIT 2") #id data
+        myresult = cursor.fetchall()
+            
+        f= open("data.txt","w+")
+        f.write(str(myresult[0][0]))
+        f.close()
+        mydb.close()
+    except mysql.connector.Error as err:
+            logging.error(err.msg)   
+
     # i = 0
 
     while True:
-        mydb1 = mysql.connector.connect(
+        
+            
+        try :
+            mydb1 = mysql.connector.connect(
                 host=config_obj["host"], #172.16.4.34
                 user=config_obj["user"], #jmto_cctv
                 password=config_obj["password"], #jmt02021!#
                 database=config_obj["database"] #nonvehicledb
             )
-            
-        try :
             cursor1= mydb1.cursor()
             cursor1.execute("SELECT id FROM data ORDER BY id DESC LIMIT 2") #id data
             myid = cursor1.fetchall()
