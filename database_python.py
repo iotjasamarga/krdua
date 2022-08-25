@@ -92,7 +92,10 @@ async def io_related():
             # else:
             #     logging.error("no picture url")
 
-            if len(nonkr_gambar) > 0:
+            if nonkr_gambar == None:
+                pass
+                
+            elif len(str(nonkr_gambar)) > 0:
                 b64_string = base64.b64encode(nonkr_gambar)
                 logging.info("converted")
                 # logging.info(b64_string[0:100])
